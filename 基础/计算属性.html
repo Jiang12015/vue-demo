@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性</title>
+</head>
+
+<body>
+    <div id="demo">
+        {{text}}<br>
+        {{text.split(',').reverse().join(',')}}<br>
+        {{reverseText}}<br>
+        总计{{prices}}<br>
+        {{reverseXXX()}}
+    </div>
+    <div id="demo2">{{ fullName }}</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+var vm = new Vue({
+  el: '#demo2',
+  data: {
+    firstName: 'Foo',
+    lastName: 'Bar',
+    fullName: 'Foo Bar'
+  },
+  watch: {
+    firstName: function (val) {
+      this.fullName = val + ' ' + this.lastName
+      console.log(val)
+    },
+    lastName: function (val) {
+      this.fullName = this.firstName + ' ' + val
+    }
+  }
+})
+
+        var app = new Vue({
+            el: '#demo',
+            data: {
+                text: '123,456,789',
+                package1: [{
+                        name: 'iphone',
+                        price: 6999,
+                        count: 2
+                    },
+                    {
+                        name: 'ipad',
+                        price: 3299,
+                        count: 1
+                    }
+                ],
+                package2: [{
+                        name: 'iphone8',
+                        price: 4999,
+                        count: 3
+                    },
+                    {
+                        name: 'ipad2',
+                        price: 2299,
+                        count: 4
+                    }
+                ]
+            },
+            computed: {
+                reverseText: function () {
+                    return this.text.split(',').reverse().join(',')
+                },
+                prices: function () {
+                    var prices = 0;
+                    for (var i = 0; i < this.package1.length; i++) {
+                        prices += this.package1[i].price * this.package1[i].count;
+                    }
+                    for (var j = 0; j < this.package2.length; j++) {
+                        prices += this.package2[j].price * this.package2[j].count;
+                    }
+                    return prices
+                }
+            },
+            methods: {
+                reverseXXX: function () {
+                    return this.text.split(',').reverse().join(',')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

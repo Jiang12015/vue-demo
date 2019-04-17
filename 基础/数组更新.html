@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+       <div v-for='fruit in arr'>{{fruit}}</div>
+       <button @click="sortArr">点我排序</button>
+       <button @click="reverseArr">点我反转</button>
+       <hr>
+       <button @click="changeOne">点我改变数组指定项</button>
+       <hr>
+       {{filterArr}}
+
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+              arr:['apple','bxnxnx','peachxxxx']
+            },
+            computed:{
+                filterArr:function(){
+                    return this.arr.filter(function (book){
+                        console.log(book)
+                        return book.match(/a/)
+                    })
+                }
+            },
+            methods:{
+                sortArr:function(){
+                    this.arr.sort(function(a,b){
+                        return b.length-a.length
+                    })
+                },
+                reverseArr:function(){
+                    this.arr.reverse()
+                },
+                //vue不支持
+                changeOne:function(){
+                    this.arr[0]='car'
+                },
+                changeArrLength:function(){
+                    this.arr.length=1
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

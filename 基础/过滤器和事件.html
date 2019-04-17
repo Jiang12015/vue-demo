@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .yellow{
+            color: blue;
+        }
+    </style>
+</head>
+<div id="dateapp">
+    {{date}}<br>
+    <!-- 过滤器，|后接的是过滤器的名字 -->
+    {{date | formatDate(11,22)}}
+    <br>
+    <span v-text='xxx'></span>
+    <span v-html='yyy'></span>
+    <div :class='classname'>xxx</div>
+    <div @dblclick='click'>{{number}}</div>
+</div>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var plusDate = function (value) {
+            return value < 10 ? '0' + value : value
+        }
+        var app = new Vue({
+            el: '#dateapp',
+            data: {
+                date: new Date(),
+                xxx:'测试',
+                yyy:'<div style="color:red">999</div>',
+                classname:"yellow",
+                number:0
+            },
+            filters: {
+                formatDate: function (value,a,b) {
+                    var date = new Date(value)
+                    var year = date.getFullYear()
+                    var month = plusDate(date.getMonth() + 1)
+                    var day = plusDate(date.getDate())
+                    var hours = plusDate(date.getHours())
+                    var min = plusDate(date.getMinutes())
+                    var sec = plusDate(date.getSeconds())
+                    return year +'--'+month +'--'+day +'   '+hours+'--'+min+'--'+sec+a+b
+
+                }
+            },
+            methods:{
+                click:function(){
+                    this.number = this.number + 1
+                }
+            },
+            mounted: function () {
+                var _this = this
+                this.timer = setInterval(function () {
+                    _this.date = new Date()
+                }, 1000)
+            },
+            beforeDestroy: function () {
+                //如果定时器存在，清除定时器
+                if (this.timer) {
+                    clearInterval(this.timer)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        <h5>我是父组件</h5>
+        <child-component msg='父组件传来的信息'></child-component>
+        <br>
+        <input type="text" v-model='parentmsg'>
+        <parent-component :msg='parentmsg'></parent-component>
+        <my-component init='666'></my-component>
+    </div>
+
+    <section id="app">
+        <custom-component :count="count"></custom-component>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#demo',
+            components: {
+                'child-component': {
+                    props: ['msg'],
+                    template: '<div>{{msg}}</div>'
+                },
+                'parent-component': {
+                    props: ['msg'],
+                    template: '<div>{{msg}}</div>'
+                },
+                'my-component': {
+                    props: ['init'],
+                    template: `    <div >
+        <h3>我是 hello 子组件</h3>
+        <!-- 在页面中直接渲染即可 -->
+        <h4>访问父组件中的数据： {{count}}</h4>
+        <button @click="change">改变父组件的数据</button>
+        </div>`,
+                    data: function () {
+                        return {
+                            count: this.init
+                        }
+                    },
+                    methods: {
+                        change() {
+                            this.count = 9999
+                        }
+                    }
+                }
+            },
+            data: {
+                parentmsg: '我是来自父组件的信息'
+            }
+        })
+
+        Vue.component("custom-component", {
+            props: ['count'],
+            template: `
+          <div>
+            <h1>一个自定义模版</h1>
+            <input type="button"  @click="changeCount" value="按钮"/>
+            {{initCount}}
+          </div>`,
+
+            data() {
+                return {
+                    initCount: this.count
+                }
+            },
+            methods: {
+                changeCount() {
+                    //这里计算的也是initCount
+                    this.initCount++
+                }
+            }
+        });
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    count: 0
+                };
+            }
+        });
+    </script>
+</body>
+
+</html>

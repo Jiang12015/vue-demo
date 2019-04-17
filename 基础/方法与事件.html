@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        点击次数：{{count}}
+        <button @click='handle()'>点我加2次</button>
+        <button @click='handle(9)'>点我加9次</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+                count: 0
+            },
+            methods: {
+                handle: function (count) {
+                    count = count || 2
+                    this.count += count
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        银行卡余额：{{total}}
+        <!-- <son-component @change='handleTotal'></son-component> -->
+        <son-component v-model='total'></son-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        //全局注册组件
+        Vue.component('son-component', {
+            template: '<div>\
+            <button @click="handleincrease">+100</button> \
+            <button @click="handlereduce">-100</button>\
+                      </div>',
+            props: {},
+            data() {
+                return {
+                    count: 2000
+                }
+            },
+            methods: {
+                handleincrease: function () {
+                    this.count = this.count + 100
+                    // this.$emit('change', this.count)
+                    this.$emit('input',this.count)
+                },
+                handlereduce: function () {
+                    this.count = this.count - 100
+                    // this.$emit('change', this.count)
+                    this.$emit('input',this.count)
+                },
+            }
+        })
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+                total: 2000
+            },
+            components: {},
+            methods: {
+                // handleTotal: function (value) {
+                //     this.total=value
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>

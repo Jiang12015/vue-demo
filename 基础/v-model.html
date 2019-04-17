@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+      <input type="checkbox" v-model='toggle' :true-value="value1" :false-value="value2">
+      {{toggle}}
+      {{toggle == value1}}
+      {{toggle == value2}}
+
+      <select v-model='selected'>
+          <option :value="{xxx:111}">xxxxx</option>
+          <option value="yyyyy">yyyyy</option>
+          <option value="zzzz">zzzz</option>
+    </select>
+    {{typeof selected}} {{selected}}
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+              toggle:true,
+              value1:'XXX',
+              value2:'yyy',
+              selected:'',
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

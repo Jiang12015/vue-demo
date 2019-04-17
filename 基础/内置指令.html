@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    v-if的实例用法：<br>
+    需求：点击按钮，实现用户名输入框和密码输入框的切换。<br>
+    <div id="demo">
+        <div v-if="type === 'name'">
+            用户名：<input type="text" placeholder="请输入用户名" key='name'>
+        </div>
+        <div v-else>
+            密码：<input type="text" placeholder="请输入密码" key='password'>
+        </div>
+        <button v-on:click='toggleType'>点我切换</button>
+    </div>
+    <div id="app">
+        <input v-model="message">
+        <p>The input value is : {{message}}</p>
+    </div>
+    <div id="box">
+        <input type="text" v-bind:value="msg">
+        <button v-on:click="say">按钮</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+       var app2=new Vue({
+            el: "#box",
+            data: {
+                    msg: "12222"
+            },
+            methods: {
+            say() {
+                alert(app.message);
+            }
+        }
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Word!'
+            }
+        })
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+                type: 'name',
+            },
+            methods: {
+                toggleType: function () {
+                    this.type = (this.type === 'name' ? 'password' : 'name')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

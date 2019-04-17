@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+       <ul>
+           <li v-for="vmMth in vueMethods">{{vmMth.name}}</li>
+       </ul>
+       <ul>
+            <li v-for="(vmMth,xxx) in vueMethods">{{xxx}}--------{{vmMth.name}}</li>
+        </ul>
+        <span v-for="value in vnshen">{{value}}</span>
+        <div v-for="(value,key,index) in vnshen">第{{index}}个称作{{key}}的{{value}}</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+              vueMethods:[
+                  {name:'多思考'},
+                  {name:'多练习'},
+                  {name:'多听课'}
+              ],
+              vnshen:{
+                  girl1:'啊啊啊',
+                  girl2:'嘻嘻嘻',
+                  girl3:'呃呃呃'
+              }
+            }
+        })
+    </script>
+</body>
+
+</html>

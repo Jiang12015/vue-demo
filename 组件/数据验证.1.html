@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+       <my-component :a='a' :b='b' :c='c':d='d'></my-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        //全局注册组件
+        Vue.component('my-component', {
+            template: '<div>{{a}}---{{b}}---{{c}}---{{d}}</div>',
+            props:{
+                a:String,
+                b:[String,Number],
+                c:{
+                    type:Boolean,
+                    default:true
+                },
+                d:{
+                    validator:function(value){
+                        return value>10
+
+                    }
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#demo',
+            components: {
+
+
+
+            },
+            data: {
+                a:'xxx',
+                b:123,
+                c:false,
+                d:88,
+
+            }
+        })
+    </script>
+</body>
+
+</html>
