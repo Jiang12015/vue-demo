@@ -10,23 +10,46 @@
 
 <body>
     <div id="demo">
-        <my-component ></my-component>
+        <my-acomponent ></my-acomponent>
+        <my-bcomponent ></my-bcomponent>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         //全局注册组件
-        Vue.component('my-component', {
-            template: '<div></div>',
+        Vue.component('my-acomponent', {
+            template:'<div><button @click="handle">点击我向B组件传递数据</button></div>',
+            data(){
+              return {
+                  aaa:'我是来自A组件的数据',
+                  bbb:'我是来ccc的数据'
+              }
+            },
+            methods:{
+                handle:function(){
+                    this.$root.bus.$emit('lala',this.aaa,this.bbb)
+                }
+            },
             props: {
 
-
+            }
+        })
+        Vue.component('my-bcomponent', {
+            template: '<div></div>',
+            created:function(){
+                  this.$root.bus.$on('lala',function(value1,value2){
+                      alert(value1)
+                      alert(value2)
+                  })
+            },
+            props: {
+                
             }
         })
         var vm = new Vue({
             el: '#demo',
             data: {
-
+               bus:new Vue()
             },
             components: {
             },
