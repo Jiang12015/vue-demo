@@ -10,58 +10,69 @@
 
 <body>
     <div id="demo">
-        <my-acomponent ></my-acomponent>
-        <my-bcomponent ></my-bcomponent>
-        <child-component></child-component>---{{msg}}
+        <my-acomponent ref='a'></my-acomponent>
+        <my-bcomponent ref='b'></my-bcomponent>
+        <child-component ref='c'></child-component>---{{msg}}
+        <br>
+        <button @click='getChildData'>从子组件获取数据</button>----{{ChildData}}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         //全局注册组件
         Vue.component('my-acomponent', {
-            template:'<div><button @click="handle">点击我向B组件传递数据</button></div>',
-            data(){
-              return {
-                  aaa:'我是来自A组件的数据',
-                  bbb:'我是来ccc的数据'
-              }
+            template: '<div><button @click="handle">点击我向B组件传递数据</button></div>',
+            data() {
+                return {
+                    msg: '我是来自A组件的数据',
+                }
             },
-            methods:{
-                handle:function(){
-                    this.$root.bus.$emit('lala',this.aaa,this.bbb)
+            methods: {
+                handle: function () {
+                    this.$root.bus.$emit('lala', this.msg,)
                 }
             },
         })
         Vue.component('my-bcomponent', {
+            data() {
+                return {
+                    msg: '我是来自B组件的数据',
+                }
+            },
             template: '<div></div>',
-            created:function(){
-                  this.$root.bus.$on('lala',function(value1,value2){
-                      alert(value1)
-                      alert(value2)
-                  })
+            created: function () {
+                this.$root.bus.$on('lala', function (value1,) {
+                    alert(value1)
+                })
             },
         })
 
         Vue.component('child-component', {
             template: '<button @click="setData">点我修改父组件信息</button>',
-            methods:{
-                setData:function(){
-                    this.$parent.msg='数据已经修改了'
+            methods: {
+                setData: function () {
+                    this.$parent.msg = '数据已经修改了'
                 }
-            }
-
+            },
+            data() {
+                return {
+                    msg: '我是来自C组件的数据',
+                }
+            },
         })
 
         var vm = new Vue({
             el: '#demo',
             data: {
-               bus:new Vue(),
-               msg:'数据还未修改'
+                bus: new Vue(),
+                msg: '数据还未修改',
+                ChildData: '还未取到'
             },
-            components: {
-            },
-            methods:{
-                
+            components: {},
+            methods: {
+                getChildData: function () {
+                    this.ChildData = this.$refs.b.msg
+                }
             }
         })
     </script>
