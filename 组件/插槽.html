@@ -18,6 +18,16 @@
             </div>
             <p slot="footer">我是底部信息</p>
         </name-component>
+         <scope-component>
+             <div slot='abc' slot-scope='props'>
+                  {{props.text}}
+             </div>
+         </scope-component>
+         <component :is='thisView'></component>
+         <button @click="handleView('A')">第一句</button>
+         <button @click="handleView('B')">第二句</button>
+         <button @click="handleView('C')">第三句</button>
+         <button @click="handleView('D')">第四句</button>
     </div>
 
 
@@ -26,7 +36,7 @@
         //全局注册组件
         Vue.component('my-component', {
             template: `<div>
-                <slot>如果父组件没有插入内容，我就作为默认出现</slot>
+                <slot >如果父组件没有插入内容，我就作为默认出现</slot>
                 </div>`,
             props: {}
         })
@@ -42,16 +52,46 @@
                   <slot name = "footer" ></slot>
                 </div>
                 </div>`,
+            mounted(){
+                //访问插槽
+                var header = this.$slots.header;
+                var text = this.$slots.header[0].elm.innerText;
+                console.log(header)
+                console.log(text)
+            }
+        })
+
+        Vue.component('scope-component', {
+            template: `<div>
+                <slot text="子组件的数据" name='abc'>如果父组件没有插入内容，我就作为默认出现</slot>
+                </div>`,
             props: {}
         })
+
         var vm = new Vue({
             el: '#demo',
             data: {
-
+               thisView:'compA'
             },
-            components: {},
+            components: {
+                compA:{
+                    template: `<div>离离原上草</div>`,
+                },
+                compB:{
+                    template: `<div>一岁一枯荣</div>`,
+                },
+                compC:{
+                    template: `<div>野火烧不尽</div>`,
+                },
+                compD:{
+                    template:`<div>春风吹又生</div>`
+                }
+            },
             methods: {
-
+                //动态组件
+                handleView:function(tag){
+                    this.thisView = 'comp'+tag
+                }
             }
         })
     </script>
