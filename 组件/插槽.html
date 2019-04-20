@@ -10,28 +10,48 @@
 
 <body>
     <div id="demo">
-        <my-component ></my-component>
+        <my-component></my-component>
+        <name-component>
+            <h3 slot="header">我是标题</h3>
+            <div>
+                <span>此div没有slot</span>
+            </div>
+            <p slot="footer">我是底部信息</p>
+        </name-component>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         //全局注册组件
         Vue.component('my-component', {
-            template: '<div></div>',
-            props: {
-
-
-            }
+            template: `<div>
+                <slot>如果父组件没有插入内容，我就作为默认出现</slot>
+                </div>`,
+            props: {}
+        })
+        Vue.component('name-component', {
+            template: `<div>
+                <div class="noneSlot">
+                <slot></slot> 
+                </div>
+                <div class="header">
+                  <slot name = "header"></slot>
+                </div>
+                <div class = "footer">
+                  <slot name = "footer" ></slot>
+                </div>
+                </div>`,
+            props: {}
         })
         var vm = new Vue({
             el: '#demo',
             data: {
 
             },
-            components: {
-            },
-            methods:{
-                
+            components: {},
+            methods: {
+
             }
         })
     </script>
