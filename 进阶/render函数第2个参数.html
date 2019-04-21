@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        <child></child>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('child', {
+            //第二个参数可选，是数据对象
+            render: function (createElement) {
+                return createElement({
+                    template:'<div>好好学习，天天向上</div>'
+                },{
+                    class:{
+                        foo:true,
+                        baz:false
+                    },
+                    style:{
+                        fontSize:'18px',
+                        color:'red'
+                    },
+                    //正常的HTML特性
+                    attrs:{
+                        id:'foo',
+                        src:'http://xxx.com',
+                    },
+                    //原生DOM属性
+                    domProps:{
+                        innerHTML:'<span style="color:blue;font-size:30px">我是蓝色</span>'
+                    }
+                })
+            }
+        })
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+            },
+            components: {},
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
