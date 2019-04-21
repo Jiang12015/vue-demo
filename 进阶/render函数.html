@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        <child :level="level"></child>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('child', {
+            //createElement第一个参数必选
+            render:function(createElement){
+            //    return createElement('h'+ this.level)   可以为String或者HTML标签
+                //   return createElement({
+                //       template:'<div>举头望明月</div>'   可以为Object---一个含有数据选项的对象
+                //   })
+                //Function,方法返还含有数据选项的对象
+                var domFun = function(){
+                    return{
+                        template:'<div>举头望明月</div>'
+                    }
+                }
+                return createElement(domFun())
+            },
+            props:['level']
+        })
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+               level:1
+            },
+            components: {
+            },
+            methods:{
+                
+            }
+        })
+    </script>
+</body>
+
+</html>
