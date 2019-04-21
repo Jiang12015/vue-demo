@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        <child></child>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('child', {
+            //第三个参数可选，是String|Array ---代表子节点
+            render: function (createElement) {
+               return createElement('div',[
+                   createElement('h1','我是H1标题'),
+                   createElement('h6','我是H6标题'),
+               ])
+            }
+        })
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+            },
+            components: {},
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
