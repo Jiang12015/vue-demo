@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">
+        <button @click='switchshow'>点击切换图片</button>
+        <my-component :show='show'></my-component> {{show}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        //全局注册组件
+        Vue.component('my-component', {
+            props:['show'],
+            render:function(createElement){
+                var imgsrc;
+                if(this.show){
+                    imgsrc='img/001.jpg'
+                }else{
+                    imgsrc='img/002.jpg'
+                }
+                return createElement('img',{
+                    attrs:{
+                        src:'imgsrc',
+                        width:'400px',
+                        height:'200px'
+                    }
+                })
+
+            }
+        })
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+                show:true
+            },
+            methods:{
+                switchshow:function(){
+                     this.show = !this.show
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
